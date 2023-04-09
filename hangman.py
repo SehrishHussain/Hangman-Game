@@ -31,7 +31,6 @@ def main():
         else:
             print("\n""THE WORD IS:", guess_word)
 
-        #print("GUESS THE WORD:", guess_word)
 
     def check_inputletter(word, total_guesses, correct_guess):
 
