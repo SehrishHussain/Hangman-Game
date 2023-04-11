@@ -8,9 +8,9 @@ def main():
 
     correct_guess = []
 
-    def calculate_total_guess(word):
-        if len(word) <= 7:
-            return len(word)
+    def calculate_total_guess(secret_word):
+        if len(secret_word) <= 7:
+            return len(secret_word)
         else:
             return 8
 
