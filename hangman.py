@@ -2,16 +2,13 @@ import random
 import re
 
 def main():
-    words = ['able', 'about', 'account', 'acid', 'across', 'act', 'addition', 'adjustment', 'advertisement', 'after',
-             'again', 'against', 'agreement', 'air', 'all', 'almost', 'among', 'amount', 'amusement', 'and', 'angle',
-             'angry', 'animal', 'answer', 'ant']
-    word = random.choice(words)
+    words = ['able', 'abo ut', 'acco unt']
+    secret_word = random.choice(words)
     print('Welcome to Hangman')
-    guess_word = word.replace(word, len(word) * '*')
-    print("The word is:", guess_word)
+
     correct_guess = []
 
-    def total_guess(word):
+    def calculate_total_guess(word):
         if len(word) <= 7:
             return len(word)
         else:
@@ -21,10 +18,10 @@ def main():
 
         for input_letter in correct_guess:
 
-            indicies = [i.start() for i in re.finditer(input_letter, word)]
+            indicies = [i.start() for i in re.finditer(input_letter, secret_word)]
             for x in indicies:
                 guess_word = guess_word[:x] + input_letter + guess_word[x+1:]
-        if guess_word == word:
+        if guess_word == secret_word:
             print("THE WORD IS:", guess_word)
             print("Hurray! YOU WON!")
             exit()
@@ -32,29 +29,38 @@ def main():
             print("\n""THE WORD IS:", guess_word)
 
 
-    def check_inputletter(word, total_guesses, correct_guess):
+    def get_user_input(secret_word, total_guesses, correct_guess):
+        # guess_word = secret_word.replace(secret_word, len(secret_word) * '*')
+        guess_word = ""
+        for letter in secret_word:
+            if letter == " ":
+                guess_word += " "
+            else:
+                guess_word += "*"
+        print("The secret word is:", guess_word)
 
         while total_guesses > 0:
             input_letter = input("Guess the letter: ")
 
-            if input_letter in word:
+            if input_letter in secret_word:
                 if input_letter in correct_guess:
                     print("Letter already guessed")
+                    print("Guessed letters are: ", correct_guess, '\n')
                 else:
                     correct_guess.append(input_letter)
                     print("Correct guess!")
-                    # print("correct guess", correct_guess)
+                    print("Guessed letters are: ", correct_guess)
                     display_word(guess_word, correct_guess)
 
-            elif input_letter not in word:
+            elif input_letter not in secret_word:
                 total_guesses = total_guesses - 1
                 print(f'Incorrect guess. You have total {total_guesses} left')
                 display_word(guess_word, correct_guess)
         print("You Lose!")
-    total_guesses = total_guess(word)
+    total_guesses = calculate_total_guess(secret_word)
     print('total_guesses: ', total_guesses)
 
-    check_inputletter(word, total_guesses, correct_guess)
+    get_user_input(secret_word, total_guesses, correct_guess)
 
 
 main()
