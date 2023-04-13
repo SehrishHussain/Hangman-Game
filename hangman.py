@@ -89,8 +89,6 @@ def get_user_input(secret_word, total_guesses, correct_guess, incorrect_guess):
                 incorrect_guess.append(input_letter)     # append input_letter in incorrect_guess list
                 display_word(guess_word, correct_guess, incorrect_guess, secret_word)   # display incorrect list
 
-
-
     want_to_play_again()
 
 
